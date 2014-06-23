@@ -2,16 +2,16 @@
 //
 
 #include "stdafx.h"
-#include <iostream>
-#include <sstream>
-#include <time.h>
-#include <vector>
-#include <iostream>
-#include<Windows.h>
-#include <fstream>
-#include<Shlobj.h>
-#include <stdio.h>
-#include <WbemCli.h>
+#include "iostream"
+#include "sstream"
+#include "time.h"
+#include "vector"
+#include "iostream"
+#include "Windows.h"
+#include "fstream"
+#include "Shlobj.h"
+#include "stdio.h"
+#include "WbemCli.h"
 #include "sqlite3.h"
 
 using namespace std;
@@ -23,7 +23,6 @@ wstring GetHomeDirectory(){
 		return path;
 }
 
-
 void WriteDefaultConfiguration(char *defaulttime){
 	ofstream config_file;
 	config_file.open("config.ini", ios::out);
@@ -33,7 +32,6 @@ void WriteDefaultConfiguration(char *defaulttime){
 
 int ConvertToMilliseconds(int interval){
 	return ((interval * 60) * 1000);
-
 }
 
 int ReadConfigurationFile(){
@@ -79,8 +77,6 @@ sqlite3* CreateDatabase(){
 	return db;
 }
 
-
-
 int _tmain(int argc, _TCHAR* argv[]){  
 	
 	//hide console window
@@ -93,8 +89,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 		SYSTEM_POWER_STATUS status;
 		::GetSystemPowerStatus(&status);//get battery life
 		int per = status.BatteryLifePercent;
-		
-		
 		//get time
 		time_t rawtime;
 		struct tm* printtime;
@@ -122,7 +116,6 @@ int _tmain(int argc, _TCHAR* argv[]){
 			batteryStats << "\n" << timenow <<strPer << "\t" << acconnected;
 		}
 
-		
 		sqlite3_stmt *statement;
 		char *sql = "INSERT INTO stat (date, battery_percentage, ac_connected) VALUES(?, ?, ?);";
 		if(sqlite3_prepare_v2(db, sql, strlen(sql), &statement, 0) == SQLITE_OK){
